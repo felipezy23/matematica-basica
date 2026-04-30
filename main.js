@@ -1,58 +1,81 @@
-const botoes = document.querySelectorAll(".botao");
-const textos = document.querySelectorAll(".aba-conteudo");
-
-for (let i = 0; i < botoes.length; i++) {
-    botoes[i].onclick = function () {
-
-        for (let j = 0; j < botoes.length; j++) {
-            botoes[j].classList.remove("ativo");
-            textos[j].classList.remove("ativo");
-        }
-
-        botoes[i].classList.add("ativo");
-        textos[i].classList.add("ativo");
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-const contadores = document.querySelectorAll(".contador");
-const tempoObjetivo1 = new Date("2025-10-05T00:00:00");
-const tempoObjetivo2 = new Date("2025-12-05T00:00:00");
-const tempoObjetivo3 = new Date("2025-12-30T00:00:00");
-const tempoObjetivo4 = new Date("2025-02-01T00:00:00");
-
-const tempos = [tempoObjetivo1, tempoObjetivo2, tempoObjetivo3, tempoObjetivo4];
-
-
-function calculaTempo(tempoObjetivo) {
-    let tempoAtual = new Date();
-    let tempoFinal = tempoObjetivo - tempoAtual;
-    let segundos = Math.floor(tempoFinal / 1000);
-    let minutos = Math.floor(segundos / 60);
-    let horas = Math.floor(minutos / 60);
-    let dias = Math.floor(horas / 24);
-
-    segundos %= 60;
-    minutos %= 60;
-    horas %= 24;
-    if (tempoFinal > 0) {
-        return [dias, horas, minutos, segundos];
-    } else {
-        return [0, 0, 0, 0];
-    }
+body {
+  background: #eef4ff;
+  color: #1e293b;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 30px;
 }
 
-function atualizaCronometro() {
-    for (let i = 0; i < contadores.length; i++) {
-        document.getElementById("dias" + i).textContent = calculaTempo(tempos[i])[0];
-        document.getElementById("horas" + i).textContent = calculaTempo(tempos[i])[1];
-        document.getElementById("min" + i).textContent = calculaTempo(tempos[i])[2];
-        document.getElementById("seg" + i).textContent = calculaTempo(tempos[i])[3];
-    }
+.container {
+  max-width: 1000px;
+  margin: auto;
 }
 
-function comecaCronometro() {
-    atualizaCronometro();
-    setInterval(atualizaCronometro, 1000);
+header {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-comecaCronometro();
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: #2563eb;
+}
+
+header p {
+  color: #475569;
+  font-size: 1.1rem;
+}
+
+.section {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.section h2 {
+  margin-bottom: 20px;
+  font-size: 1.7rem;
+  color: #2563eb;
+}
+
+.topics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.topic {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+
+  padding: 15px;
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  transition: 0.2s;
+}
+
+.topic:hover {
+  background: #dbeafe;
+  transform: translateY(-2px);
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+
+  accent-color: #2563eb;
+}
