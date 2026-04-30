@@ -1,81 +1,122 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+const sections = [
 
-body {
-  background: #eef4ff;
-  color: #1e293b;
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 30px;
-}
+  {
+    title: '1. Regra de Três',
+    topics: [
+      'Regra de três simples',
+      'Regra de três composta'
+    ]
+  },
 
-.container {
-  max-width: 1000px;
-  margin: auto;
-}
+  {
+    title: '2. Porcentagem',
+    topics: [
+      'Porcentagem básica',
+      'Aumento percentual',
+      'Desconto percentual'
+    ]
+  },
 
-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
+  {
+    title: '3. Frações',
+    topics: [
+      'Simplificação',
+      'Soma de frações',
+      'Multiplicação de frações',
+      'Divisão de frações'
+    ]
+  },
 
-header h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-  color: #2563eb;
-}
+  {
+    title: '4. Funções',
+    topics: [
+      'Função do 1º grau',
+      'Gráfico da função afim',
+      'Função do 2º grau',
+      'Gráfico da parábola'
+    ]
+  },
 
-header p {
-  color: #475569;
-  font-size: 1.1rem;
-}
+  {
+    title: '5. Estatística e Probabilidade',
+    topics: [
+      'Média',
+      'Moda',
+      'Mediana',
+      'Probabilidade básica'
+    ]
+  },
 
-.section {
-  background: white;
-  border: 1px solid #cbd5e1;
-  border-radius: 20px;
-  padding: 25px;
-  margin-bottom: 25px;
+  {
+    title: '6. Geometria Plana',
+    topics: [
+      'Triângulos',
+      'Ângulos',
+      'Perímetro',
+      'Área',
+      'Teorema de Pitágoras'
+    ]
+  }
 
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
+]
 
-.section h2 {
-  margin-bottom: 20px;
-  font-size: 1.7rem;
-  color: #2563eb;
-}
+const roadmap = document.getElementById('roadmap')
 
-.topics {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-}
+sections.forEach((section, sectionIndex) => {
 
-.topic {
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
+  const div = document.createElement('div')
 
-  padding: 15px;
-  border-radius: 15px;
+  div.classList.add('section')
 
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  let topicsHTML = ''
 
-  transition: 0.2s;
-}
+  section.topics.forEach((topic, topicIndex) => {
 
-.topic:hover {
-  background: #dbeafe;
-  transform: translateY(-2px);
-}
+    const checkboxId = `check-${sectionIndex}-${topicIndex}`
 
-input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+    const checked =
+      localStorage.getItem(checkboxId) === 'true'
 
-  accent-color: #2563eb;
-}
+    topicsHTML += `
+      <label class="topic">
+
+        <input
+          type="checkbox"
+          id="${checkboxId}"
+          ${checked ? 'checked' : ''}
+        >
+
+        <span>${topic}</span>
+
+      </label>
+    `
+  })
+
+  div.innerHTML = `
+    <h2>${section.title}</h2>
+
+    <div class="topics">
+      ${topicsHTML}
+    </div>
+  `
+
+  roadmap.appendChild(div)
+
+})
+
+const checkboxes = document.querySelectorAll(
+  'input[type="checkbox"]'
+)
+
+checkboxes.forEach(checkbox => {
+
+  checkbox.addEventListener('change', () => {
+
+    localStorage.setItem(
+      checkbox.id,
+      checkbox.checked
+    )
+
+  })
+
+})
